@@ -1,9 +1,23 @@
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../context/AuthContext";
 
 const SignIn = () => {
+  const { signInUser } = use(AuthContext);
+
   const handleSignIn = (e) => {
-    e.preventDefault;
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    // signin user
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -18,8 +32,18 @@ const SignIn = () => {
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
             <form onSubmit={handleSignIn} className="space-y-3">
-              <input type="email" className="input" placeholder="Email" />
-              <input type="password" className="input" placeholder="Password" />
+              <input
+                name="email"
+                type="email"
+                className="input"
+                placeholder="Email"
+              />
+              <input
+                name="password"
+                type="password"
+                className="input"
+                placeholder="Password"
+              />
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>

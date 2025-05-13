@@ -9,6 +9,9 @@ import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import { AuthContext } from "./context/AuthContext.jsx";
 import AuthProvider from "./context/AuthProvider.jsx";
+import Orders from "./components/Orders.jsx";
+import Profile from "./components/Profile.jsx";
+import PrivateRoute from "./Routes/PrivateRoute.jsx";
 
 // export const AuthContext = createContext(null);
 // const userInfo = { email: "poteto@alu.com" };
@@ -21,6 +24,16 @@ const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: `signIn`, Component: SignIn },
       { path: `signUp`, Component: SignUp },
+      {
+        path: `orders`,
+        // Component: Orders,
+        element: (
+          <PrivateRoute>
+            <Orders />
+          </PrivateRoute>
+        ),
+      },
+      { path: `profile`, Component: Profile },
     ],
   },
 ]);

@@ -23,7 +23,7 @@ const SignUp = () => {
     //     });
     createUser(email, password)
       .then((result) => {
-        console.log(result);
+        console.log(result.user);
       })
       .catch((error) => {
         console.log(error);
