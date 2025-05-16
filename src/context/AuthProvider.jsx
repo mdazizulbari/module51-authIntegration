@@ -5,8 +5,12 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
+
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -27,6 +31,11 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const googleSignIn = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
+
   // onAuthStateChanged(auth, (currentUser) => {
   //   if (currentUser) {
   //     console.log("has current user", currentUser);
@@ -45,7 +54,7 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const userInfo = { user, loading, createUser, signInUser, signOutUser };
+  const userInfo = { user, loading, googleSignIn, createUser, signInUser, signOutUser };
 
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 };
