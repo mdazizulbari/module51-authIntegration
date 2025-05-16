@@ -1,4 +1,4 @@
-import { createContext, StrictMode } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -12,6 +12,7 @@ import AuthProvider from "./context/AuthProvider.jsx";
 import Orders from "./components/Orders.jsx";
 import Profile from "./components/Profile.jsx";
 import PrivateRoute from "./Routes/PrivateRoute.jsx";
+import Dashboard from "./components/Dashboard.jsx";
 
 // export const AuthContext = createContext(null);
 // const userInfo = { email: "poteto@alu.com" };
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     Component: Root,
     children: [
       { index: true, Component: Home },
-      { path: `signIn`, Component: SignIn },
+      { path: `/signIn`, Component: SignIn },
       { path: `signUp`, Component: SignUp },
       {
         path: `orders`,
@@ -33,7 +34,22 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      { path: `profile`, Component: Profile },
+      {
+        path: `profile`,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: `dashboard`,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
